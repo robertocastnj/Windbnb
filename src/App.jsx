@@ -6,6 +6,7 @@ import Modal from './components/modal'
 
 export default function App() {
   const [data, setData] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     axios
@@ -22,8 +23,8 @@ export default function App() {
 
   return (
     <div className="font-sans h-full w-full">
-      <Modal />
-      <Header />
+      {isOpen && <Modal />}
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <CardContainer data={data} />
     </div>
   )

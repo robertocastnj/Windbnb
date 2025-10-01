@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Header() {
+export default function Header({ isOpen, setIsOpen }) {
   return (
     <header className="p-4 flex flex-col gap-4 items-center justify-between w-full h-[20%] sm:h-[15%] sm:flex-row sm:p-6">
       <div className="-950 h-[25%] w-full sm:h-full sm:flex items-center">
@@ -13,7 +13,10 @@ export default function Header() {
 
       {/* <!-- Search Bar --> */}
       <div className="flex justify-center w-full h-full text-[0.8rem] text-[#9A9C9A] sm:h-[90%]">
-        <div className="flex items-center shadow-md rounded-xl w-[100%] h-full">
+        <div
+          className="flex items-center shadow-md rounded-xl w-[100%] h-full"
+          onClick={() => setIsOpen(true)}
+        >
           <button
             id="add_location"
             className="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
