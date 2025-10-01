@@ -21,7 +21,7 @@ export default function Cards({
       <div className="flex justify-between items-center text-sm text-gray-500 mt-1">
         <div className="flex gap-2 text-[0.8rem]">
           {superHost && (
-            <span className=" border-2 font-bold w-min pl-2 pr-2 rounded-2xl">
+            <span className=" border-2 font-bold w-min h-min pl-2 pr-2 rounded-2xl">
               SUPERHOST
             </span>
           )}

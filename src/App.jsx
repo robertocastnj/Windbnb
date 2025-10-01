@@ -2,6 +2,7 @@ import Header from './components/header'
 import CardContainer from './components/card-container'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Modal from './components/modal'
 
 export default function App() {
   const [data, setData] = useState([])
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <div className="font-sans h-full w-full">
+      <Modal />
       <Header />
       <CardContainer data={data} />
     </div>
