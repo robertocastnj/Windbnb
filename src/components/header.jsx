@@ -1,6 +1,10 @@
-import React from 'react'
+import { useInfo } from '../context/info-context'
+import { useModal } from '../context/modal-context'
 
-export default function Header({ isOpen, setIsOpen }) {
+export default function Header() {
+  const { adults, guests, child, location, setLocation, addGuest, dimGuest } =
+    useInfo()
+  const { setIsOpen, setLocationState } = useModal()
   return (
     <header className="p-4 flex flex-col gap-4 items-center justify-between w-full h-[20%] sm:h-[15%] sm:flex-row sm:p-6">
       <div className="-950 h-[25%] w-full sm:h-full sm:flex items-center">
@@ -20,14 +24,16 @@ export default function Header({ isOpen, setIsOpen }) {
           <button
             id="add_location"
             className="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
+            onClick={() => setLocationState(true)}
           >
-            Add location
+            {location.city ? `${location.city}, Findland` : 'Add Location'}
           </button>
           <button
             id="add_guest"
             className="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
+            onClick={() => setLocationState(false)}
           >
-            Add guests
+            {guests > 0 ? `${guests} Guests` : 'Add Guests'}
           </button>
           <button className="search-bar-button w-[20%] h-full flex items-center justify-center cursor-pointer">
             <svg

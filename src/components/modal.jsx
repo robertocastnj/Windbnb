@@ -1,27 +1,34 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import SrchBtn from './srch-btn'
 import LocationInfo from './location-info'
 import GuestInfo from './guest-info'
+import { useModal } from '../context/modal-context'
+import { useInfo } from '../context/info-context'
 
 export default function Modal() {
-  const [locationState, setLocationState] = useState(false)
-  const [guestState, setGuestState] = useState(false)
-  console.log('locattion:' + locationState)
-  console.log('guests:' + guestState)
+  const { setIsOpen, locationState, setLocationState } = useModal()
+  const { adults, guests, child, location, setLocation, addGuest, dimGuest } =
+    useInfo()
 
   return (
     <div
       id="modal"
-      className="fixed w-full h-full bg-black/50 flex items-start"
+      className="fixed w-full h-full bg-black/50 items-start"
+      onClick={() => setIsOpen(false)}
     >
       <div
         id="modal_in"
+        onClick={(e) => e.stopPropagation()}
         className="bg-white w-full h-[90%] text-black rounded-2xl p-6 flex flex-col gap-6"
       >
         {/* <!-- Modal header --> */}
         <header className="flex flex-row justify-between items-center sm:hidden">
           <span className="text-[0.8rem] font-semibold">Edit your search</span>
-          <button id="header_button">
+          <button
+            id="header_button"
+            className="cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -47,10 +54,13 @@ export default function Modal() {
                 list="opciones"
                 id="miInput"
                 name="miInput"
+                value={location.city}
                 className="outline-none text-[1rem] text-black"
+                onChange={(e) => {
+                  setLocation({ ...location, city: e.target.value })
+                }}
                 onClick={() => {
                   setLocationState(true)
-                  setGuestState(false)
                 }}
               />
             </div>
@@ -60,9 +70,10 @@ export default function Modal() {
                 id="guestInput"
                 className="outline-none w-full"
                 placeholder="Add guests"
+                value={guests > 0 ? `${guests} Guests` : ''}
+                readOnly
                 onClick={() => {
                   setLocationState(false)
-                  setGuestState(true)
                 }}
               />
             </div>
@@ -77,7 +88,7 @@ export default function Modal() {
         </div>
         {/* <!-- Location or Guest information --> */}
         {locationState && <LocationInfo />}
-        {guestState && <GuestInfo />}
+        {!locationState && <GuestInfo />}
         {/* <!-- Search button --> */}
         <div
           id="searchBtn"

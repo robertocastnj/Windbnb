@@ -1,8 +1,12 @@
-import React from 'react'
+import { useModal } from '../context/modal-context'
 
 export default function SrchBtn() {
+  const { setIsOpen, locationState, setLocationState } = useModal()
   return (
-    <button className="w-30 flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1.5 rounded-2xl">
+    <button
+      onClick={() => setIsOpen(false)}
+      className="w-30 flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1.5 rounded-2xl"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
